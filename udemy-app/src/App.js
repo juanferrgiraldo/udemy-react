@@ -53,15 +53,12 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'    
     }
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to my React App</h1>          
-        </header>
-        { 
-          this.state.showPersons === true ?
-          <div>
+
+    let persons = null;
+
+    if(this.state.showPersons){
+      persons = (     // the most optimal and elegat way to output conditional content: The JS way.
+        <div>                     
             <Person 
               name={this.state.persons[0].name}
               age={this.state.persons[0].age}
@@ -80,8 +77,16 @@ class App extends Component {
               Hobbies: Read and draw.
             </Person>
             {/*<Person name={this.state.otherState[0].name} /> --> not a properly way to make it*/}
-          </div> : null 
-        }                 
+          </div>
+      )
+    }
+
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to my React App</h1>          
+        </header>                
         <button 
           onClick={() => this.switchNameHandler('Juanfis!')}
           style={style}>
@@ -92,6 +97,7 @@ class App extends Component {
           style={style}>
           Toggle Persons
         </button>
+        {persons}
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, "Welcome to my React App"));
