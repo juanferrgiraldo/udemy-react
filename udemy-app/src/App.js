@@ -16,14 +16,21 @@ class App extends Component {
     showPersons: true
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        {name: "Juan", age: "21"},
-        {name: event.target.value, age: "23"},
-        {name: "Andrea", age: "21"}        
-      ]
-    })
+  nameChangeHandler = (event, id) => {
+    const indexPerson = this.state.persons.findIndex(person => {
+      return person.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[indexPerson]
+    };
+
+    person.name = event.target.value; // Updates person name.
+
+    const persons = [...this.state.persons];
+    persons[indexPerson] = person;
+
+    this.setState({ persons: persons })
   }
 
   togglePersonsHandler = () => {
@@ -61,7 +68,8 @@ class App extends Component {
               name={person.name} 
               age={person.age}
               key={person.id}       // The key value helps react to update only the components that have changed
-              click={() => this.deletePersonHandler(index)}/>
+              click={() => this.deletePersonHandler(index)}
+              change={(event) => this.nameChangeHandler(event, person.id)}/>
           })}            
           </div>
       )
