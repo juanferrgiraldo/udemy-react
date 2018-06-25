@@ -34,7 +34,9 @@ class App extends Component {
   }
 
   deletePersonHandler = (personIndex) => {
-    const persons = this.state.persons;   // Bad practice, because the objects an arrays are reference types, so we're mutating the original data.
+    // const persons = this.state.persons;   // Bad practice, because the objects an arrays are reference types, so we're mutating the original data.
+    // const persons = this.state.persons.slice(); // Creates a copy of array and then updates the state.
+    const persons = [...this.state.persons];       // The same of slice operator but with a modern JS.
     persons.splice(personIndex, 1);      // Removes one person from the array.
     this.setState({persons: persons});
   }
