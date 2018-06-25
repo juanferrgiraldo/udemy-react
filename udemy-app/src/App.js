@@ -13,18 +13,7 @@ class App extends Component {
     otherState: [
       {name: "This is another state"}
     ],
-    showPersons: false
-  }
-
-  switchNameHandler = (newName) => {
-    // DON'T DO  THIS: this.state.persons[0].name = 'Juanfis';
-    this.setState({
-      persons: [
-        {name: newName, age: "21"},
-        {name: "Daniela", age: "23"},
-        {name: "Andrea", age: "21"}        
-      ]
-    })
+    showPersons: true
   }
 
   nameChangeHandler = (event) => {
@@ -44,6 +33,12 @@ class App extends Component {
     })
   }
 
+  deletePersonHandler = (personIndex) => {
+    const persons = this.state.persons;   // Bad practice, because the objects an arrays are reference types, so we're mutating the original data.
+    persons.splice(personIndex, 1);      // Removes one person from the array.
+    this.setState({persons: persons});
+  }
+
   render() {
     // Inline style
     const style = {
@@ -58,25 +53,13 @@ class App extends Component {
 
     if(this.state.showPersons){
       persons = (     // the most optimal and elegat way to output conditional content: The JS way.
-        <div>                     
-            <Person 
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-              click={this.switchNameHandler.bind(this, 'Juanfis')}> {/*Best way to pass methods by reference*/}
-              Hobbies: Code and skateboarding.
-            </Person>
-            <Person 
-              name={this.state.persons[1].name} 
-              age={this.state.persons[1].age}
-              change={this.nameChangeHandler}>
-              Hobbies: Read and draw.
-            </Person>
-            <Person 
-              name={this.state.persons[2].name} 
-              age={this.state.persons[2].age}>
-              Hobbies: Read and draw.
-            </Person>
-            {/*<Person name={this.state.otherState[0].name} /> --> not a properly way to make it*/}
+        <div>
+          {this.state.persons.map((person, index) => {  // Maping an array into an array to output list
+            return <Person 
+              name={person.name} 
+              age={person.age}
+              click={() => this.deletePersonHandler(index)}/>
+          })}            
           </div>
       )
     }
@@ -87,11 +70,6 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to my React App</h1>          
         </header>                
-        <button 
-          onClick={() => this.switchNameHandler('Juanfis!')}
-          style={style}>
-          Switch Name
-        </button> {/*Second way to pass methods by reference, not recommended, inefficient*/}
         <button 
           onClick={this.togglePersonsHandler}
           style={style}>
