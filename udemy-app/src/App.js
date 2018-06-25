@@ -6,9 +6,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      {name: "Juan", age: "21"},      
-      {name: "Daniela", age: "23"},
-      {name: "Andrea", age: "21"}
+      {id: '1', name: "Juan", age: "21"},      
+      {id: '2', name: "Daniela", age: "23"},
+      {id: '3', name: "Andrea", age: "21"}
     ],
     otherState: [
       {name: "This is another state"}
@@ -60,6 +60,7 @@ class App extends Component {
             return <Person 
               name={person.name} 
               age={person.age}
+              key={person.id}       // The key value helps react to update only the components that have changed
               click={() => this.deletePersonHandler(index)}/>
           })}            
           </div>
