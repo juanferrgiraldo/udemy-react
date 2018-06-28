@@ -51,7 +51,8 @@ class App extends Component {
   render() {
     // Inline style
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -70,16 +71,27 @@ class App extends Component {
               key={person.id}       // The key value helps react to update only the components that have changed
               click={() => this.deletePersonHandler(index)}
               change={(event) => this.nameChangeHandler(event, person.id)}/>
-          })}            
+          })}          
           </div>
       )
+      style.backgroundColor = 'red';
+    }
+
+    let classes = [];
+
+    if (this.state.persons.length <= 2){
+      classes.push('red'); // classes = ['red']
+    }
+    if (this.state.persons.length <= 1){
+      classes.push('bold'); // classes = ['red', 'bold']
     }
 
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to my React App</h1>          
+          <h1 className="App-title">Welcome to my React App</h1>
+          <p className={classes.join(' ')}>This is really working!</p>         
         </header>                
         <button 
           onClick={this.togglePersonsHandler}
