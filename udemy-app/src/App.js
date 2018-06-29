@@ -118,4 +118,3 @@ class App extends Component {
 }
 
 export default Radium(App); // Highter order component => inject extra functionality
-
