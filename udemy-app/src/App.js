@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -50,17 +50,9 @@ class App extends Component {
   }
 
   render() {
-    // Inline style
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    }
 
     let persons = null;
+    let btnClass = '';
 
     if(this.state.showPersons){
       persons = (     // the most optimal and elegat way to output conditional content: The JS way.        
@@ -75,28 +67,28 @@ class App extends Component {
           })}          
           </div>          
       )
-      style.backgroundColor = 'red';
+      btnClass = classes.Red;
     }
 
-    let classes = [];
+    let assignedClasses = [];
 
     if (this.state.persons.length <= 2){
-      classes.push('red'); // classes = ['red']
+      assignedClasses.push(classes.red); // assignedClasses = ['red']
     }
     if (this.state.persons.length <= 1){
-      classes.push('bold'); // classes = ['red', 'bold']
+      assignedClasses.push(classes.bold); // assignedClasses = ['red', 'bold']
     }
 
     return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to my React App</h1>
-            <p className={classes.join(' ')}>This is really working!</p>         
+        <div className={classes.App}>
+          <header className={classes.AppHeader}>
+            <img src={logo} className={classes.AppLogo} alt="logo" />
+            <h1 className={classes.AppTitle}>Welcome to my React App</h1>
+            <p className={assignedClasses.join(' ')}>This is really working!</p>         
           </header>                
           <button 
             onClick={this.togglePersonsHandler}
-            style={style}>
+            className={btnClass}>
             Toggle Persons
           </button>
           {persons}
