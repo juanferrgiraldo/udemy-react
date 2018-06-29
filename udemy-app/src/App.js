@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Radium, {StyleRoot} from 'radium';
 
 import logo from './logo.svg';
 import './App.css';
@@ -58,11 +57,7 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }  
+      cursor: 'pointer'
     }
 
     let persons = null;
@@ -81,10 +76,6 @@ class App extends Component {
           </div>          
       )
       style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
     }
 
     let classes = [];
@@ -97,7 +88,6 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>  {/*To avoid an erroe with @media feature*/}
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -111,10 +101,9 @@ class App extends Component {
           </button>
           {persons}
         </div>
-      </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, "Welcome to my React App"));
   }
 }
 
-export default Radium(App); // Highter order component => inject extra functionality
+export default App;
