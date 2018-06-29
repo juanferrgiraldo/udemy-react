@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Radium, {StyleRoot} from 'radium';
+
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
@@ -56,13 +58,17 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'    
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }  
     }
 
     let persons = null;
 
     if(this.state.showPersons){
-      persons = (     // the most optimal and elegat way to output conditional content: The JS way.
+      persons = (     // the most optimal and elegat way to output conditional content: The JS way.        
         <div>
           {this.state.persons.map((person, index) => {  // Maping an array into an array to output list
             return <Person 
@@ -72,9 +78,13 @@ class App extends Component {
               click={() => this.deletePersonHandler(index)}
               change={(event) => this.nameChangeHandler(event, person.id)}/>
           })}          
-          </div>
+          </div>          
       )
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     }
 
     let classes = [];
@@ -87,22 +97,25 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to my React App</h1>
-          <p className={classes.join(' ')}>This is really working!</p>         
-        </header>                
-        <button 
-          onClick={this.togglePersonsHandler}
-          style={style}>
-          Toggle Persons
-        </button>
-        {persons}
-      </div>
+      <StyleRoot>  {/*To avoid an erroe with @media feature*/}
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Welcome to my React App</h1>
+            <p className={classes.join(' ')}>This is really working!</p>         
+          </header>                
+          <button 
+            onClick={this.togglePersonsHandler}
+            style={style}>
+            Toggle Persons
+          </button>
+          {persons}
+        </div>
+      </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, "Welcome to my React App"));
   }
 }
 
-export default App;
+export default Radium(App); // Highter order component => inject extra functionality
+
