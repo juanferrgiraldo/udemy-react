@@ -12,6 +12,7 @@
   
   .CockpitTitle {
     font-size: 1.5em;
+    color: lightseagreen;
   }
   
   @keyframes Cockpit-logo-spin {
