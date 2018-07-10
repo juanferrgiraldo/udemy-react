@@ -9,14 +9,15 @@ import withClass from '../hoc/withClass';
 class App extends Component {
   state = {
     persons: [
-      {id: '1', name: "Juan", age: "21"},      
-      {id: '2', name: "Daniela", age: "23"},
-      {id: '3', name: "Andrea", age: "21"}
+      {id: '1', name: "Juan", age: 21},      
+      {id: '2', name: "Daniela", age: 23},
+      {id: '3', name: "Andrea", age: 21}
     ],
     otherState: [
       {name: "This is another state"}
     ],
-    showPersons: true
+    showPersons: true,
+    toggleClicked: 0
   }
 
   nameChangeHandler = (event, id) => {
@@ -38,8 +39,11 @@ class App extends Component {
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({
-      showPersons: !doesShow
+    this.setState((prevState, props) => { // To avoid the interference between other state versions
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      }
     })
   }
 

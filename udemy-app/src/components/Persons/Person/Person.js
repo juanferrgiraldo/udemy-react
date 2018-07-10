@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './Person.css';
 import withClass from '../../../hoc/withClass';
 import Aux from '../../../hoc/Aux';
 
-const person = (props) => {  
-    return (
-        <Aux>
-            <h4 onClick={props.click}>I'm {props.name} and I'm {props.age} years old.</h4>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.change} value={props.name} /> {/*Two way binding example*/}
-        </Aux>    
-    )
+class Person extends Component {
+    constructor( props ){
+        super(props);
+        console.log(props);
+    }
+    render(){
+        return (
+            <Aux>
+                <h4 onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old.</h4>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.change} value={this.props.name} /> {/*Two way binding example*/}
+            </Aux>    
+        )
+    }    
 };
 
-export default withClass(person, classes.Person);
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    change: PropTypes.func
+}
+
+export default withClass(Person, classes.Person);
