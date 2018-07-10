@@ -1,11 +1,11 @@
 import React from 'react';
 
 import classes from './Cockpit.css';
-import logo from '../../assets/logo.svg';
+import Aux from '../../hoc/Aux';
 
 const cockpit = (props) => {
 
-    let btnClass = '';
+    let btnClass = classes.Button;
     let assignedClasses = [];
 
     if (props.persons.length <= 2){
@@ -16,23 +16,20 @@ const cockpit = (props) => {
     }
 
     if(props.showPersons){
-        btnClass = classes.Red;
+        btnClass = [classes.Button, classes.Red].join(' ');
     }
 
     return (
-        <div className={classes.Cockpit}>
-            <header className={classes.CockpitHeader}>
-                <img src={logo} className={classes.CockpitLogo} alt="logo" />
-                <h1 className={classes.CockpitTitle}>{ props.appTitle }</h1>
-                <p className={assignedClasses.join(' ')}>This is really working!</p>         
-            </header>
+        <Aux>
+            <h1>{ props.appTitle }</h1>
+            <p className={assignedClasses.join(' ')}>This is really working!</p>         
             <br/>             
             <button 
                 onClick={props.clicked}
                 className={btnClass}>
                 Toggle Persons
             </button>
-        </div>       
+        </Aux>       
     )
 };
 
