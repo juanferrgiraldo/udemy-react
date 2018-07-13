@@ -17,7 +17,8 @@ class App extends Component {
       {name: "This is another state"}
     ],
     showPersons: true,
-    toggleClicked: 0
+    toggleClicked: 0,
+    authenticated: false
   }
 
   nameChangeHandler = (event, id) => {
@@ -55,6 +56,10 @@ class App extends Component {
     this.setState({persons: persons});
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  }
+
   render() {
 
     let persons = null;    
@@ -62,10 +67,11 @@ class App extends Component {
     if(this.state.showPersons){
       persons = (     // the most optimal and elegat way to output conditional content: The JS way.        
         <div>
-          <Persons
+          <Persons            
             persons={this.state.persons}
             clicked={this.deletePersonHandler}
             changed={this.nameChangeHandler}
+            isAuthenticated={this.state.authenticated}
             />         
           </div>          
       )      
@@ -76,6 +82,7 @@ class App extends Component {
           <Cockpit
             appTitle={this.props.title}
             persons={this.state.persons}
+            login={this.loginHandler}
             showPersons={this.state.showPersons}            
             clicked={this.togglePersonsHandler} />
           {persons}

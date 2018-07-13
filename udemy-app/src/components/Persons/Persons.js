@@ -20,6 +20,7 @@ class persons extends Component{
         age={person.age}
         position={index}
         ref={this.lastPersonRef}
+        authenticated={this.props.isAuthenticated}
         key={person.id}      // The key value helps react to update only the components that have changed
         click={() => this.props.clicked(index)}
         change={(event) => this.props.changed(event, person.id)}/>
