@@ -6,6 +6,7 @@ const persons = (props) => props.persons.map((person, index) => {  // Maping an 
         return <Person 
           name={person.name} 
           age={person.age}
+          position={index}
           key={person.id}       // The key value helps react to update only the components that have changed
           click={() => props.clicked(index)}
           change={(event) => props.changed(event, person.id)}/>

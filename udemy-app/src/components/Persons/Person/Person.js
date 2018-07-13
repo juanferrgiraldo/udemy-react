@@ -10,12 +10,21 @@ class Person extends Component {
         super(props);
         console.log(props);
     }
+    componentDidMount (){
+        if(this.props.position === 0){
+            this.inputElement.focus();
+        }
+    }
     render(){
         return (
             <Aux>
                 <h4 onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old.</h4>
                 <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.change} value={this.props.name} /> {/*Two way binding example*/}
+                <input 
+                    ref={(inp) => {this.inputElement = inp}}
+                    type="text" 
+                    onChange={this.props.change} 
+                    value={this.props.name} /> {/*Two way binding example*/}
             </Aux>    
         )
     }    
