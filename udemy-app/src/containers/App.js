@@ -6,6 +6,8 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
 
+export const AuthContext = React.createContext();
+
 class App extends Component {
   state = {
     persons: [
@@ -70,8 +72,7 @@ class App extends Component {
           <Persons            
             persons={this.state.persons}
             clicked={this.deletePersonHandler}
-            changed={this.nameChangeHandler}
-            isAuthenticated={this.state.authenticated}
+            changed={this.nameChangeHandler}            
             />         
           </div>          
       )      
@@ -85,7 +86,9 @@ class App extends Component {
             login={this.loginHandler}
             showPersons={this.state.showPersons}            
             clicked={this.togglePersonsHandler} />
-          {persons}
+            <AuthContext.Provider value={this.state.authenticated}>
+            {persons}
+            </AuthContext.Provider>          
         </Aux>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, "Welcome to my React App"));
